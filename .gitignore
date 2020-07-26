@@ -1,3 +1,5 @@
 /node_modules
-
-socket-back.code-workspace
+/.idea
+/typings
+/public/js/
+npm-debug.log
