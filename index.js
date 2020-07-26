@@ -10,6 +10,11 @@ app.get('/', (req, res) => {
 
 io.on('connection', (socket) => {
     console.log('a user connected test');
+
+    socket.on('user-message', msgData => {
+        socket.broadcast.emit('user-message', msgData);
+    });
+
     socket.on('disconnect', () => {
       console.log('user disconnected');
     });
