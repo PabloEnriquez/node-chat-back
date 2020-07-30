@@ -1,4 +1,5 @@
 const app = require('express')();
+app.set('view engine', 'pug');
 const http = require('http').createServer(app);
 const io = require('socket.io')(http);
 
@@ -9,6 +10,7 @@ app.get('/', (req, res) => {
 });
 
 // const users = new Set();
+
 
 io.on('connection', (socket) => {
     console.log('a user connected test');
