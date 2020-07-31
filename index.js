@@ -9,29 +9,19 @@ app.get('/', (req, res) => {
     res.send('<h1>Hey Socket.io</h1>');
 });
 
-// const users = new Set();
-
-
 io.on('connection', (socket) => {
     console.log('a user connected test');
-
-    socket.on('set-username', userData => {
-        // socket.userId = userData.userId;
-        socket.userName = userData.userName;
-        // users.add(userData);
-    });
 
     socket.on('user-message', msgData => {
         io.emit('user-message', msgData);
     });
 
-    socket.on('typing', userData => {
-        socket.broadcast.emit('typing', socket.userName);
+    socket.on('typing', typingData => {
+        socket.broadcast.emit('typing', typingData);
     });
 
     socket.on('disconnect', () => {
         console.log('user disconnected');
-        // users.delete(socket.userId);
     });
 });
 
