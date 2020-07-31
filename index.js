@@ -1,4 +1,5 @@
 const app = require('express')();
+app.set('view engine', 'pug');
 const http = require('http').createServer(app);
 const io = require('socket.io')(http);
 
@@ -9,12 +10,23 @@ app.get('/', (req, res) => {
 });
 
 io.on('connection', (socket) => {
-    console.log('a user connected');
+    console.log('a user connected test');
+
+    socket.on('user-message', msgData => {
+        io.emit('user-message', msgData);
+    });
+
+    socket.on('typing', typingData => {
+        socket.broadcast.emit('typing', typingData);
+    });
+
     socket.on('disconnect', () => {
-      console.log('user disconnected');
+        console.log('user disconnected');
     });
 });
 
 http.listen(port, () => {
     console.log(`listening on *:${port}`);
 });
+
+module.exports = app;
